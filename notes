@@ -1,0 +1,2 @@
+gcloud compute ssh vm-1 --project=comp-demo-28166 --zone=us-central1-a -- -L 8080:localhost:32451
+
