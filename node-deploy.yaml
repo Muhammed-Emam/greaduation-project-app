@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+        - name: node-app
+          image: 35.222.79.122:8085/repository/docker-repo/node-app:latest
+          ports:
+            - name: httpport
+              containerPort: 3000
+          env:
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: password
+          - name: HOST
+            valueFrom:
+              configMapKeyRef:
+                name: node-map
+                key: HOST
+          - name: DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: node-map
+                key: DATABASE
+          - name: USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: node-map
+                key: USERNAME
+      imagePullSecrets:
+      - name: regcred
+              
