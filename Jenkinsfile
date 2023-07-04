@@ -191,7 +191,7 @@ pipeline{
         }
         stage("CD") {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'nexus_credentials',usernameVariable: 'user',passwordVariable: 'pass')]){
+                withCredentials([usernamePassword(credentialsId: 'nexus',usernameVariable: 'user',passwordVariable: 'pass')]){
                   sh 'kubectl create secret docker-registry regcred   --namespace=dev   --docker-server=35.222.79.122:8085   --docker-username=${user}   --docker-password=${pass}   --docker-email=admin@example.org'
                   sh 'docker login 35.222.79.122:8085 -u ${user}  -p ${pass}'
                   sh 'kubectl apply -f configmap.yaml'
