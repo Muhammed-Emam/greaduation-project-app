@@ -29,6 +29,8 @@ pipeline {
             //     }
                 // // Build the image as per your requirements
                 sh 'docker build -t node-app:latest .'
+                sh 'docker login -u admin -p 1234 http://34.29.26.163:8081/repository/docker-private-registry/'
+
             }
         }
 
