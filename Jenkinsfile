@@ -22,13 +22,13 @@ pipeline {
 
         stage('Build Image') {
             steps {
-               script{              
+            //    script{              
                     
-                    dockerImage = docker.build imageName
+            //         dockerImage = docker.build imageName
 
-                }
+            //     }
                 // // Build the image as per your requirements
-                // sh 'docker build -t node-app:latest .'
+                sh 'docker build -t node-app:latest .'
             }
         }
 
