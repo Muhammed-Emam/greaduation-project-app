@@ -45,11 +45,11 @@ pipeline {
                     sh "docker login -u $user -p $pass http://34.29.26.163:8081/"
                 }
 
-                // Tag the image with Nexus registry information
-                sh 'docker tag node-app:latest 10.103.254.180:5000/repository/ahmed-repo/app:latest'
+                // // Tag the image with Nexus registry information
+                // sh 'docker tag node-app:latest 10.103.254.180:5000/repository/ahmed-repo/app:latest'
 
-                // Push the image to Nexus registry
-                sh 'docker push 10.103.254.180:5000/repository/ahmed-repo/app:latest'
+                // // Push the image to Nexus registry
+                // sh 'docker push 10.103.254.180:5000/repository/ahmed-repo/app:latest'
             }
         }
 
