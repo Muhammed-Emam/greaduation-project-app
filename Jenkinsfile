@@ -3,6 +3,15 @@ pipeline {
         label 'slave'
     }
 
+
+    environment {
+        imageName = "node-app"
+        registryCredentials = "nexus"
+        registry = "http://34.29.26.163:8081/"
+        dockerImage = ''
+    }
+
+
     stages {
         stage('Clone Repository') {
             steps {
@@ -13,8 +22,13 @@ pipeline {
 
         stage('Build Image') {
             steps {
-                // Build the image as per your requirements
-                sh 'docker build -t node-app:latest .'
+               script{              
+                    
+                    dockerImage = docker.build imageName
+                    
+                }
+                // // Build the image as per your requirements
+                // sh 'docker build -t node-app:latest .'
             }
         }
 
