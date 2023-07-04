@@ -7,7 +7,7 @@ pipeline {
     environment {
         imageName = "node-app"
         registryCredentials = "nexus"
-        registry = "http://34.29.26.163:8085/"
+        registry = "http://34.29.26.163:8081/repository/docker-private-registry/"
         dockerImage = ''
     }
 
