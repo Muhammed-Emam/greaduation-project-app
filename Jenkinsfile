@@ -32,7 +32,7 @@ pipeline {
                 // Login to the Nexus registry
                 
                 withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    sh "docker login -u $user -p $pass http://34.29.26.163:8081/"
+                    sh "docker login -u $user -p $pass http://34.29.26.163:8085/"
                 }
 
                 // // Tag the image with Nexus registry information
