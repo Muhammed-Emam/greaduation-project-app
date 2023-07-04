@@ -7,7 +7,7 @@ pipeline {
     environment {
         imageName = "node-app"
         registryCredentials = "nexus"
-        registry = "http://34.29.26.163:8081/"
+        registry = "http://34.29.26.163:8085/"
         dockerImage = ''
     }
 
@@ -24,7 +24,7 @@ pipeline {
             steps {
                script{              
                     
-                    dockerImage = docker.build
+                    dockerImage = docker.build imageName
 
                 }
                 // // Build the image as per your requirements
