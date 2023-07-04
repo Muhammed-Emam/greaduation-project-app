@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jenkins
+  namespace: tools
 spec:
   replicas: 1
   selector:
@@ -12,37 +13,77 @@ spec:
       labels:
         app: jenkins
     spec:
-      serviceAccount: jenkins
       containers:
-      - name: jenkins
-        image: jenkins/jenkins:lts
-        ports:
-          - name: http-port
-            containerPort: 8080
-          - name: jnlp-port
-            containerPort: 8080
-        volumeMounts:
-          - name: jenkins-vol
-            mountPath: /var/jenkins_vol
-          - name: nfs
-            mountPath: "/mountpath"
-          - name: dockersoc
-            mountPath: /var/run/
-        securityContext:
-            allowPrivilegeEscalation: false
-            runAsUser: 0
-        lifecycle:
-          postStart:
-            exec:
-              command: ["/bin/bash", '-c', 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"; install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl;apt-get update ; apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release ; curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg ; echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null ; apt-get update ; apt-get install -y docker-ce-cli ; rm -rf /var/lib/apt/lists/* echo hello']
+        - name: jenkins
+          image: jenkins/jenkins:lts
+          ports:
+            - containerPort: 8080
 
-      volumes:
-        - name: jenkins-vol
-          emptyDir: {}
-        - name: kubectl
-          emptyDir: {}
-        - name: nfs
-          emptyDir: {}
-        - name: dockersoc
-          hostPath:
-            path: /var/run/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: jenkins
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: jenkins
+#   template:
+#     metadata:
+#       labels:
+#         app: jenkins
+#     spec:
+#       serviceAccount: jenkins
+#       containers:
+#       - name: jenkins
+#         image: jenkins/jenkins:lts
+#         ports:
+#           - name: http-port
+#             containerPort: 8080
+#           - name: jnlp-port
+#             containerPort: 8080
+#         volumeMounts:
+#           - name: jenkins-vol
+#             mountPath: /var/jenkins_vol
+#           - name: nfs
+#             mountPath: "/mountpath"
+#           - name: dockersoc
+#             mountPath: /var/run/
+#         securityContext:
+#             allowPrivilegeEscalation: false
+#             runAsUser: 0
+#         lifecycle:
+#           postStart:
+#             exec:
+#               command: ["/bin/bash", '-c', 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"; install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl;apt-get update ; apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release ; curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg ; echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null ; apt-get update ; apt-get install -y docker-ce-cli ; rm -rf /var/lib/apt/lists/* echo hello']
+
+#       volumes:
+#         - name: jenkins-vol
+#           emptyDir: {}
+#         - name: kubectl
+#           emptyDir: {}
+#         - name: nfs
+#           emptyDir: {}
+#         - name: dockersoc
+#           hostPath:
+#             path: /var/run/
