@@ -24,8 +24,8 @@ pipeline {
             steps {
                script{              
                     
-                    dockerImage = docker.build imageName
-                    
+                    dockerImage = docker.build
+
                 }
                 // // Build the image as per your requirements
                 // sh 'docker build -t node-app:latest .'
